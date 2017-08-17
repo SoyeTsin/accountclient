@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>风秀QQ登陆</title>
+
+    <style>
+        body {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+    <script>
+        //http://usercb.show.baofeng.com/wx/cb?code=021c7adefb8a799a961e976b68f5f06v&state=PC_pid
+        //http://usercb.show.baofeng.com/oauth/wx/cb?code=031b9bd1343821db282db63b298b14ab&state=STATE
+        //http://usercb.show.baofeng.com/oauth/html/wechatcb.html
+        var code = getParam('code');
+        var state = getParam('state');
+        function getParam(name) {
+            var search = document.location.search;
+            var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+            var matcher = pattern.exec(search);
+            var items = null;
+            if (null != matcher) {
+                try {
+                    items = decodeURIComponent(decodeURIComponent(matcher[1]));
+                } catch (e) {
+                    try {
+                        items = decodeURIComponent(matcher[1]);
+                    } catch (e) {
+                        items = matcher[1];
+                    }
+                }
+            }
+            return items;
+        }
+        var oMyForm = new FormData();
+        var oReq = new XMLHttpRequest();
+        var url = '../qq/cb?code=' + code + '&state=' + state;
+        oReq.open("GET", url, true);
+        oReq.onload = function (oEvent) {
+            if (oReq.status == 200) {
+                var strList = oReq.responseText.split('\n ');
+                var str = '(' + strList.join('') + ')';
+                var jsonObj = eval(str);
+                var base64 = new Base64();
+                var str = ('{"from":"fengxiu_pc","Result":"' + jsonObj.Result + '", "Msg":"' + jsonObj.Msg + '","Username":"' + jsonObj.Username + '", "Password": "' + jsonObj.Password + '", "AccountType": "' + jsonObj.AccountType + '","Nickname":"' + jsonObj.Nickname + '","AccessToken":"' + jsonObj.AccessToken + '","OpenID":"' + jsonObj.OpenID + '","State":"' + jsonObj.State + '"}');
+                var baseStr = base64.encode(str)
+                //document.getElementById('cone').innerHTML = (str)
+                //var str = ('{"from":"fengxiu_pc","Result":"", "Msg":"","Username":"", "Password": "", "AccountType": "","Nickname":"","AccessToken":"","OpenID":"","State":""}');
+                //var str = ('{"from":"fengxiu_web","st":"", "bfcsid":"","version":"", "roomid":""}');
+                if (jsonObj.Result == 0) {
+                    window.location.href = "BaoFengShow://?data=" + baseStr;
+                    //window.location.href = "http://show.baofeng.com?nick=" + jsonObj.Nickname;
+                    document.getElementById('cone').innerHTML = ('欢迎登陆风秀，已登录成功');
+                    var s = 10;
+                    var inter = setInterval(function () {
+                        document.getElementById('cone').innerHTML = s;
+                        if (s <= 0) {
+                            clearInterval(inter);
+                        }
+                        s--;
+                    }, 1000)
+                    setTimeout(function () {
+                        window.opener = null;
+                        window.close();
+                    }, 10000);
+                } else {
+                    //document.getElementById('body').innerHTML = ("BaoFengShow://?data=" + baseStr)
+                    window.location.href = "BaoFengShow://?data=" + baseStr;
+                    setTimeout(function () {
+                        window.opener = null;
+                        window.close();
+                    }, 10000);
+                }
+            } else {
+                alert('网络异常');
+                window.opener = null;
+                window.close();
+            }
+        };
+        oReq.send(oMyForm);
+        //    window.location.href = "http://show.baofeng.com";
+        function doObjUploadExplorer(url, lnk_id, file, progress, success, content, frm, div_dlg, start_func) {
+            var file_input = null,
+                    frm_data = new FormData(),
+                    req;
+            try {
+                //firefox, chrome, safari etc
+                req = new XMLHttpRequest();
+            }
+            catch (e) {
+                // Internet Explorer Browsers
+                req = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            if (document.getElementById(file)) {
+                file_input = document.getElementById(file);
+                for (var i = 0; i < file_input.files.length; ++i) {
+                    frm_data.append(file, file_input.files[i]);
+                }
+            }
+            req.upload.addEventListener('progress', function (e) {  //Event called while upload is in progress
+                if (progress !== undefined
+                        && e.lengthComputable) {
+                    $('#' + progress).html('<font>Uploading... ' + Math.round((e.loaded / e.total) * 100) + '%</font>');
+                }
+            });
+            req.upload.addEventListener('load', function (e) {  //Event called when upload is completed
+                $('#' + progress).html('<font>Retrieving updated data...</font>');
+            });
+            req.upload.addEventListener('error', function (e) {  //Event called when an error is returned by the server
+                alert('An error has occurred...');
+            });
+            req.addEventListener('readystatechange', function (e) {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        if (content !== undefined) {
+                            $('#' + content).html(this.response);
+                        }
+                        if (success !== undefined) {
+                            showChkMark(success);
+                        }
+                    } else {
+                        console.log('Server replied with HTTP status: ' + this.status);
+                    }
+                    if (progress !== undefined) {
+                        $('#' + progress).hide();
+                    }
+                    if (div_dlg !== undefined) {
+                        $('#' + div_dlg).dialog('close');
+                    }
+                    $('#' + file).attr('disabled', false).val('');
+                }
+            });
+            if (progress !== undefined) {
+                $('#' + progress).show();
+            }
+            $('#' + file).attr('disabled', true);
+            url += (url.indexOf('?') === -1 ? '?' : '&');
+            url += 'lnk_id=' + lnk_id + '&file=' + file;
+            req.open('POST', url);
+            req.setRequestHeader('Cache-Control', 'no-cache');
+            if (start_func !== undefined) {
+                start_func.apply();
+                setTimeout(function () {
+                    req.send(frm_data);
+                }, 500);
+            } else {
+                req.send(frm_data);
+            }
+        }
+    </script>
+</head>
+<body>
+<a href="http://show.baofeng.com"><img src="http://picture.show.baofeng.com/web_show_images/images/logom.png"></a>
+
+<div></div>
+<img src="http://picture.show.baofeng.com/web_show_images/images/sec.jpg">
+
+<div id="cone"></div>
+<div id="body"></div>
+</body>
+<script type="text/javascript" src="http://picture.show.baofeng.com/web_show_images/pay/js/base64.js"></script>
+</html>

@@ -1,0 +1,50 @@
+a, body,center,div,em, footer, form, h1, h2, h3, h4, h5, h6, header, html, i, iframe, img, label, li, menu, nav, object, p,section, span,strong,ul { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; outline: 0;}
+ul,li{ list-style:none;}
+ul:after{ content:""; display:table; clear:both;}
+a{ text-decoration:none;}
+html{ }
+body{font-family:Microsoft YaHei,Arial,Helvetica,sans-serif; background:#fff; color:#313131;}
+header{ text-align:center; background:#FFF;  padding:20px 0 40px 0;}
+.main{ padding:0 4%;}
+.ge{ width:100%; height:10px; background:#f2f2f2; clear:both;}
+.payInput{ color:#808080;}
+.payInput ul{ border-top:1px solid #f5f5f5; margin-top:10px;}
+.payInput input,.content input{ text-align:center; border:1px solid #bfbfbf; border-radius:3px; height:40px; margin-top:10px; width:100%;-webkit-box-sizing:border-box; box-sizing:border-box; padding:0 10px;}
+
+.content{ margin-top:10px; background:#FFF; padding:15px 0;}
+.content h2 span{ color:#ff4a87; margin-left:10px;}
+.content ul{ margin-top:10px; padding-top:15px; border-top:1px solid #dfdfdf;}
+.content ul li{ float:left; margin:0 15px 10px 0; width:-webkit-calc((100% - 30px)/3); width: calc((100% - 30px)/3); height:40px; text-align:center; line-height:40px; -webkit-box-sizing:border-box; box-sizing:border-box; border:1px solid #bfbfbf; border-radius:3px;}
+.content ul li.active{ color:#ff4a87; border-color:#ff4a87;}
+.content ul li:nth-child(3n){ margin-right:0;}
+.content input{ text-align:left; margin-top:0;}
+.submit{ display:block; background:#ff5587; border-radius:99px; height:50px; width:100%; color:#FFF; text-align:center; line-height:50px;}
+#userName,#msg{ color:#fc4a87; display:block; margin: 20px 0; display:none}
+#msg{ color:#f00;}
+
+footer{ margin-top:10px; background:#FFF; padding:20px 0;}
+footer p{ font-size:80%; color:#808080; line-height:23px; margin-top:15px;}
+.finfo{ display:block; text-align:center; width:100%; color:#fc4a87; font-size:80%;}
+@media only screen and (min-width:320px) and (max-width:359px) {
+	
+}
+
+@media only screen and (min-width:360px) and (max-width:479px) {
+	
+}
+
+@media only screen and (min-width:480px) and (max-width:639px) {
+	
+}
+
+@media only screen and (min-width:640px) and (max-width:767px) {
+	
+}
+
+@media only screen and (min-width:768px) and (max-width:979px) {
+	
+}
+
+@media only screen and (min-width:980px) and (max-width:1024px) {
+
+}

@@ -1,0 +1,230 @@
+﻿<html>
+<head>
+    <meta charset="utf-8">
+    <title>个人账户中心</title>
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
+    <link href="favicon.ico" rel="icon shortcut" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="http://picture.show.baofeng.com/web_show_images/pay/css/important.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="http://picture.show.baofeng.com/web_show_images/pay/lib/jquery-1.11.2.js"></script>
+    <script src="http://picture.show.baofeng.com/web_show_images/pay/lib/scrollbar.js"></script>
+    <style> .ms-controller {
+        visibility: hidden
+    } </style>
+</head>
+<body class="ms-controller" ms-controller="main">
+<div ms-css-display="loginState!=0?'block':'none'">
+    <div></div>
+    <header>
+        <div class="main">
+            <div class="logo"><a href="javascript:;"><img
+                    src="http://picture.show.baofeng.com/web_show_images/pay/images/logo.png"></a></div>
+            <div class="topInfo"><a href="javascript:;" class="quit" ms-click="outLogin()"><i
+                    class="icon-quit"></i>退出</a>
+            </div>
+            <div class="topInfo" style="text-align:center"><span ms-css-display="loginState==1?'block':'none'"
+                                                                 style="margin-top:8px;margin-right:25px;font-size:14px"><span>欢迎您，{{nick_name}}</span></span>
+            </div>
+        </div>
+    </header>
+    <div class="clear"></div>
+    <div ms-css-display="loginState==2?'block':'none'">
+        <div class="content" id="contentScreen" ms-include-src="{{screen}}"></div>
+    </div>
+    <div class="main index" ms-css-display="loginState==1?'block':'none'">
+        <div class="indexTop">
+            <div class="indexTopLeft">
+                <ul>
+                    <li><h3>秀豆明细</h3></li>
+                    <li>
+                        <div class="left"><span>起始时间：</span> <input type="text" id="start" value="" readonly
+                                                                    ms-duplex="time.startTime">
+                            <span>&nbsp;至&nbsp;</span> <input type="text" id="end" value="" readonly
+                                                              ms-duplex="time.endTime"></div>
+                        <a href="javascript:;" class="search-icon left" ms-click="getTotal()"></a></li>
+                    <li><span>类型筛选：</span> <a href="javascript:;" class="active" ms-click="subentry(0)">全部</a> <a
+                            href="javascript:;" ms-click="subentry(2)">存入</a> <a href="javascript:;"
+                                                                                 ms-click="subentry(1)">支出</a></li>
+                    <li><i class="time-icon"></i>
+
+                        <div class="setTime"><span id="startTime">{{time.startTime}}</span>&nbsp;至&nbsp;<span
+                                id="endTime">{{time.endTime}}</span></div>
+                        <span>存入：<a>{{total.recharge}}</a><i class="dou-icon"></i></span>
+                        <span>支出：<a>{{total.pay}}</a><i class="dou-icon"></i></span></li>
+                </ul>
+            </div>
+            <div class="indexTopright"><h2>秀豆余额：{{money_value}}<i class="bigDou-icon"></i></h2> <a href="pay.html"
+                                                                                                   target="_blank">立即充值</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="indexContent">
+            <table>
+                <thead>
+                <tr>
+                    <td><i class="liu-icon"></i>流水号</td>
+                    <td><i class="time-icon"></i>时间</td>
+                    <td><i class="ru-icon"></i>存入（秀豆）</td>
+                    <td><i class="chu-icon"></i>支出（秀豆）</td>
+                    <td><i class="bei-icon"></i>备注</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ms-repeat="totalListClone">
+                    <td>{{el.orderId}}</td>
+                    <td>{{el.time|date("yyyy-MM-dd HH:mm:ss")}}</td>
+                    <td><span class="deposit">{{el.recharge}}</span></td>
+                    <td><span class="pay">{{el.pay}}</span></td>
+                    <td ms-title="el.remarks"><span>{{el.remarks}}</span> <span
+                            ms-css-display="el.type=='0'?'inline':'none'"> <a href="javascript:;" style="color:#f35690"
+                                                                              ms-click="viewT(el)" class="openContinue">继续支付</a></span>
+                        <span style="color:#ccc" ms-css-display="el.type=='2'?'inline':'none'">订单关闭</span></td>
+                    <!-- ms-click="continueRecharge(el)"--> </tr>
+                </tbody>
+            </table>
+            <div class="page">
+                <ul>
+                    <li>共{{countNum}}条</li>
+                    <li>第{{pageNow}}/{{pageTotal}}页</li>
+                    <li ms-click="clickPage(0)"><a href="javascript:;">首页</a></li>
+                    <li ms-click="clickPage(1)"><a href="javascript:;" ms-class="pageColor:(pageNow==1)">上一页</a></li>
+                    <li ms-click="clickPage(2)"><a href="javascript:;" ms-class="pageColor:(pageTotal==pageNow)">下一页</a>
+                    </li>
+                    <li ms-click="clickPage(3)"><a href="javascript:;">尾页</a></li>
+                    <li>转到 <input type="text" ms-duplex="skip"> 页</li>
+                    <li ms-click="skipPage()"><a href="javascript:;">GO</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        <form action="http://pay.show.baofeng.com/order/alipay/pay" id="orderForm" method="post"><input type="hidden"
+                                                                                                        name="order_id"
+                                                                                                        ms-duplex="fromObj.order_id">
+            <input type="hidden" name="money" ms-duplex="fromObj.money"> <input type="hidden" name="nick_name"
+                                                                                ms-duplex="fromObj.nick_name"> <input
+                    type="hidden" name="subject" ms-duplex="fromObj.subject"> <input type="hidden" name="defaultbank"
+                                                                                     ms-duplex="fromObj.defaultbank">
+        </form>
+    </div>
+</div>
+<div ms-css-display="loginState==0?'block':'none'" class="login">
+    <div class="loginBg"></div>
+    <div class="loginMain">
+        <iframe src="http://sso.baofeng.net/api/minilogin/show?from=fengxiu_pc&amp;next_action=http://pay.show.baofeng.com/"
+                frameborder="0"></iframe>
+        <i></i>
+    </div>
+</div>
+<!--<div ms-css-display="loginState==0?'block':'none'" class="login">-->
+<!--<iframe src="http://sso.baofeng.net/api/minilogin/pcweb?from=fengxiu_pc&hiden_close=1&next_action=http://show.baofeng.com/beckoning.html"-->
+<!--frameborder="0" height="336px" width="543px">-->
+<!--</iframe>-->
+<!--</div>-->
+<div class="continueBg" ms-css-display="payViewStates==0?'none':'block'">
+    <div class="continueMain"> <!--<div class="continueMain">--> <!--<h4>选择支付方式：</h4>-->
+        <!--<div class="continueBut"><a href="javascript:;" class="active">支付宝支付</a><a href="javascript:;">微信支付</a><a-->
+        <!--href="javascript:;">网上银行</a></div>--> <!--<h6><a href="javascript:;" class="close">继续支付</a></h6>-->
+        <!--<a href="javascript:;" class="icon-close close"></a>--> <!--</div>-->
+        <div class="payTab">
+            <div class="payTabTit">
+                <ul>
+                    <li><a href="javascript:;" class="zfbTabTit active">第三方支付</a></li>
+                    <li><a href="javascript:;" class="wyTabTit">银行卡支付</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+            <div class="payTabList">
+                <ul class="zfbList">
+                    <li ms-click="setDefaultbank('')"><a href="javascript:;" class="active"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/third/zfb.png"></a></li>
+                    <li ms-click="setDefaultbank('weixin')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/third/wxzf4.png"></a></li>
+                </ul>
+                <div class="clear"></div>
+                <ul class="yhList">
+                    <li ms-click="setDefaultbank('ICBCB2C')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_03.png"></a></li>
+                    <li ms-click="setDefaultbank('ABC')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_05.jpg"></a></li>
+                    <li ms-click="setDefaultbank('CCB')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_07.png"></a></li>
+                    <li ms-click="setDefaultbank('SPDB')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_09.png"></a></li>
+                    <li ms-click="setDefaultbank('BOCB2C')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_11.png"></a></li>
+                    <li ms-click="setDefaultbank('CMB')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_13.png"></a></li>
+                    <li ms-click="setDefaultbank('CIB')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_21.png"></a></li>
+                    <li ms-click="setDefaultbank('GDB')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_22.png"></a></li>
+                    <li ms-click="setDefaultbank('FDB')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_23.png"></a></li>
+                    <li ms-click="setDefaultbank('HZCBB2C')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_24.png"></a></li>
+                    <li ms-click="setDefaultbank('SHBANK')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_25.png"></a></li>
+                    <li ms-click="setDefaultbank('NBBANK')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_26.png"></a></li>
+                    <li ms-click="setDefaultbank('SPABANK')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_33_1.jpg"></a>
+                    </li>
+                    <li ms-click="setDefaultbank('POSTGC')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_35.png"></a></li>
+                    <li ms-click="setDefaultbank('BJRCB')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_50.png"></a></li>
+                    <li ms-click="setDefaultbank('CEB-DEBIT')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_51.png"></a></li>
+                    <li ms-click="setDefaultbank('COMM')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_52.png"></a></li>
+                    <li ms-click="setDefaultbank('CMBC')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_53.png"></a></li>
+                    <li ms-click="setDefaultbank('SHRCB')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_54.png"></a></li>
+                    <li ms-click="setDefaultbank('WZCBB2C-DEBIT')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_55.png"></a></li>
+                    <li ms-click="setDefaultbank('CITIC-DEBIT')"><a href="javascript:;"><img
+                            src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_56.png"></a></li>
+                    <!--<li ms-click="setDefaultbank('abc1003')"><a href="javascript:;"><img-->
+                    <!--src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_36.png"></a>-->
+                    <!--</li>--> <!--<li ms-click="setDefaultbank('abc1004')"><a href="javascript:;"><img-->
+                    <!--src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_37.png"></a>-->
+                    <!--</li>-->
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="clear"></div>
+            <h6><a href="javascript:;" ms-click="setRecharge()">确定支付</a></h6> <a href="javascript:;" ms-click="viewC()"
+                                                                                 class="icon-close"></a></div>
+    </div>
+</div>
+<div class="zhezhao" ms-css-display="weixinView==2?'block':'none'">
+    <div class="tanchuang">
+        <div ms-css-display="zhifuchenggong==2?'block':'none'">
+            <div class="erweima"><span id="weixinUrl"></span></div>
+            <h5>微信扫描二维码完成支付</h5>
+            <div class="eweimawenzi"><a href="javascript:;" ms-click="escWeiXin()">取消支付</a> <a
+                    href="javascript:;">支付完成</a></div>
+        </div>
+        <div ms-css-display="zhifuchenggong==0?'block':'none'">
+            <div class="mainSuccess">
+                <div class="mainSuccessBg1"></div>
+                <h3>支付成功&nbsp;{{daojishi}}</h3></div>
+        </div>
+        <div ms-css-display="zhifuchenggong==1?'block':'none'">
+            <div class="mainSuccess"><h3>支付失败&nbsp;{{daojishi}}</h3></div>
+        </div>
+    </div>
+</div>
+<script src="http://picture.show.baofeng.com/web_show_images/pay/lib/laydate/laydate.js"></script>
+<script src="http://picture.show.baofeng.com/web_show_images/pay/js/base64.js"></script>
+<script src="http://picture.show.baofeng.com/web_show_images/pay/lib/main.js"></script>
+<script src="http://picture.show.baofeng.com/web_show_images/pay/js/md5.js"></script>
+<script src="http://picture.show.baofeng.com/web_show_images/pay/lib/avalon.min.js"></script>
+<script src="http://picture.show.baofeng.com/web_show_images/pay/js/commonUtil.js"></script>
+<script src="lib/qrcode.min.js"></script>
+<script src="js/main.js"></script>
+<script src="http://s95.cnzz.com/z_stat.php?id=1257393663&web_id=1257393663" language="JavaScript"></script><style>a[title="站长统计"] { display: none }</style>
+</body>
+</html>

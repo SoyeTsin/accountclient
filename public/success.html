@@ -1,0 +1,41 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>个人账户中心</title>
+    <link rel="stylesheet" type="text/css" href="css/important.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="main">
+        <div class="logo"><a href="javascript:;"><img src="images/logo.png"></a></div>
+    </div>
+</header>
+<div class="clear"></div>
+<div class="mainSuccess1">
+    <div class="mainSuccess">
+        <div class="mainSuccessBg"></div>
+        <h3>支付成功</h3><span>商品名称：风秀秀豆<b id="amount">0</b>个<i></i>金额：<b id="money">0</b>元</span> <a
+            href="http://pay.show.baofeng.com">查看个人中心</a> <a href="http://pay.show.baofeng.com/pay.html">继续充值</a></div>
+</div>
+<div class="clear"></div>
+<div class="main">
+    <div class="payFooter"><span>Copyright©2015&nbsp;&nbsp;北京风秀科技有限公司&nbsp;&nbsp;<a href="http://www.miibeian.gov.cn/"
+                                                                                    target="_blank">京ICP备08011423号 </a></span>
+        <span style="float:right">京网文[2014]0921-221 京市演2424</span></div>
+</div>
+</body>
+<script>function getQueryString(e) {
+    var n = new RegExp("(^|&)" + e + "=([^&]*)(&|$)", "i"), t = window.location.search.substr(1).match(n);
+    return null != t ? unescape(t[2]) : null
+}
+function changeTwoDecimal_f(e) {
+    var n = parseFloat(e);
+    if (isNaN(n))return alert("function:changeTwoDecimal->parameter error"), !1;
+    var n = Math.round(100 * e) / 100, t = n.toString(), r = t.indexOf(".");
+    for (0 > r && (r = t.length, t += "."); t.length <= r + 2;)t += "0";
+    return t
+}
+var money = getQueryString("money"), amount = getQueryString("amount");
+document.getElementById("money").innerHTML = changeTwoDecimal_f(money), document.getElementById("amount").innerHTML = amount;</script>
+</html>

@@ -1,0 +1,249 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>充值中心</title>
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
+    <link href="favicon.ico" rel="icon shortcut" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="http://picture.show.baofeng.com/web_show_images/pay/css/important.css">
+    <link rel="stylesheet" type="text/css" href="http://picture.show.baofeng.com/web_show_images/pay/css/style8.css">
+    <script type="text/javascript"
+            src="http://picture.show.baofeng.com/web_show_images/pay/lib/jquery-1.11.2.js"></script>
+    <style>.ms-controller {
+        visibility: hidden
+    }</style>
+</head>
+<body class="ms-controller" ms-controller="pay">
+<header>
+    <div class="main">
+        <div class="logo"><a href="javascript:;"><img
+                src="http://picture.show.baofeng.com/web_show_images/pay/images/logo.png"></a></div>
+        <div class="topInfo" style="text-align:center"></div>
+    </div>
+</header>
+<div>
+    <div class="clear"></div>
+    <div class="pay-main">
+        <div class="main bgw"><a href="http://pay.show.baofeng.com" class="quit quit2">进入个人中心<i class="icon-quit2"></i></a>
+            <div class="paddLR20">
+                <div class="pay-tit" style="display:none"><h3>秀豆充值</h3></div>
+                <div class="clear"></div>
+                <div class="left">
+                    <div class="payCheckMsg">{{phoneCheckMsg}}<i>{{nick_name}}</i></div>
+                    <div class="pay-input"><label><input type="radio" name="radio" style="width: 20px" value="1"
+                                                         ms-duplex-text="toggle"
+                                                         ms-click="radioClick()"><span>通过风秀ID充值：</span><input
+                            ms-keyup="radioCheck(1)" ms-duplex="radioUuid" placeholder="请输入风秀ID" id="uuid"
+                            onmouseup="jiaodian(1)"></label>
+                        <div class="clear"></div>
+                        <label><input type="radio" name="radio" style="width: 20px;" value="0" ms-duplex-text="toggle"
+                                      ms-click="radioClick()">通过手机号充值：<input ms-keyup="radioCheck(0)"
+                                                                             ms-duplex="userName" placeholder="请输入手机号"
+                                                                             id="userName"
+                                                                             onmouseup="jiaodian(0)"></label>
+                        <div class="clear"></div>
+                        <script>function jiaodian(e) {
+                            if (e == 0) {
+                                var userName = document.getElementById('userName');
+                                setTimeout(function () {
+                                    userName.focus();
+                                }, 500);
+                            } else {
+                                var uuid = document.getElementById('uuid');
+                                setTimeout(function () {
+                                    uuid.focus();
+                                }, 500);
+                            }
+                        }</script>
+                    </div>
+                </div>
+                <div class="right pay-txt"><p>1元=10秀豆</p>
+                    <p>秀豆是您在本平台消费的虚拟货币，您可以通过充值获得，也可手动添加充值金额.</p>
+                    <p></p>
+                    <p>你可以到直播间：</p>
+                    <p>送礼物、与明星进行互动、消费、可以帮自己升级</p></div>
+                <div class="clear"></div>
+                <div class="pay">
+                    <ul>
+                        <li ms-click="payMun(10)"><a href="javascript:;" class="active"><h4>10元</h4><span>100个秀豆</span></a>
+                        </li>
+                        <li ms-click="payMun(30)"><a href="javascript:;"><h4>30元</h4><span>300个秀豆</span></a></li>
+                        <li ms-click="payMun(50)"><a href="javascript:;"><h4>50元</h4><span>500个秀豆</span></a></li>
+                        <li ms-click="payMun(100)"><a href="javascript:;"><h4>100元</h4><span>1000个秀豆</span></a></li>
+                        <li ms-click="payMun(1000)"><a href="javascript:;"><h4>1000元</h4><span>10000个秀豆</span></a></li>
+                        <li ms-click="payMun(0)"><a><h6>其他金额</h6><h5><input type="text" placeholder="输入金额"
+                                                                            class="payInput" ms-keyup="keyupMoney()"
+                                                                            ms-duplex="kuMoney" maxlength="12"></h5>
+                            <span><i class="payInputText">{{tttMsg}}</i></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="payTab">
+                <div class="payTabTit">
+                    <ul>
+                        <li><a href="javascript:;" class="zfbTabTit active">第三方支付</a></li>
+                        <li><a href="javascript:;" class="wyTabTit">银行卡支付</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+                <div class="payTabList">
+                    <ul class="zfbList">
+                        <li ms-click="setDefaultbank('')"><a href="javascript:;" class="active"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/third/zfb.png"></a></li>
+                        <li ms-click="setDefaultbank('weixin')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/third/wxzf4.png"></a>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                    <ul class="yhList">
+                        <li ms-click="setDefaultbank('ICBCB2C')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_03.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('ABC')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_05.jpg"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('CCB')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_07.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('SPDB')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_09.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('BOCB2C')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_11.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('CMB')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_13.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('CIB')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_21.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('GDB')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_22.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('FDB')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_23.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('HZCBB2C')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_24.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('SHBANK')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_25.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('NBBANK')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_26.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('SPABANK')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_33_1.jpg"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('POSTGC')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_35.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('BJRCB')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/bank_50.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('CEB-DEBIT')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_51.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('COMM')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_52.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('CMBC')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_53.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('SHRCB')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_54.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('WZCBB2C-DEBIT')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_55.png"></a>
+                        </li>
+                        <li ms-click="setDefaultbank('CITIC-DEBIT')"><a href="javascript:;"><img
+                                src="http://picture.show.baofeng.com/web_show_images/pay/images/bank/banka_56.png"></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+                <div class="payInfo"><h4>应付：<span>{{zhangdan.jine||0}}元</span></h4><h4>
+                    实付：<span>{{zhangdan.jine||0}}元</span></h4>
+                    <div class="payInfoBott"><h3>账号<span>{{userName}}</span>增加<i> &nbsp;{{zhangdan.xiudou||0}}&nbsp;</i>个秀豆&nbsp;&nbsp;应付金额：<span>{{zhangdan.jine||0}}元</span>
+                    </h3><a href="javascript:;" id="recharge" ms-click="lijizhifu()">立即支付</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <footer>
+        <div class="main">
+            <div class="payFooter"><span>Copyright©2015&nbsp;&nbsp;北京风秀科技有限公司&nbsp;&nbsp;<a
+                    href="http://www.miibeian.gov.cn/" target="_blank">京ICP备08011423号 </a></span> <span
+                    style="float:right; color:#676767">京网文[2014]0921-221 京市演2424</span></div>
+        </div>
+    </footer>
+    <div class="paySuccess" ms-css-display="payPopUpState==0?'none':'block'">
+        <div class="paySuccessBox"><p>支付完成前请不要关闭窗口，</p>
+            <p>支付遇到问题请查看<a href="http://service.baofeng.com/hhelpcenter/detail/360">帮助中心</a>。</p>
+            <div class="paySuccessBoxBut"><a href="javascript:;" ms-click="selOrder()">支付成功</a> <a href="javascript:;"
+                                                                                                   class="close"
+                                                                                                   style="background:#ccc">选中其他支付方式</a>
+            </div>
+            <a href="javascript:;" class="icon-close close"></a></div>
+    </div>
+    <div class="paySuccess2" ms-css-display="payPopUpState==2?'block':'none'">
+        <div class="paySuccessBox"><h3>已扣款成功，但没有成功提示</h3>
+            <div><i class="icon-info"></i><h4>由于网络传输延迟，订单信息可能尚未更新，我们会会及时查询并更新订单状态，请勿重新支付。<a
+                    href="http://pay.show.baofeng.com" ms-click="backIndex()">查看订单</a></h4></div>
+            <h3>未扣款成功</h3>
+            <div><i class="icon-info"></i><h4>您可以继续支付。<a href="http://pay.show.baofeng.com/pay.html"
+                                                         class="close">继续支付</a></h4></div>
+            <a href="javascript:;" class="icon-close close"></a></div>
+    </div>
+    <div>
+        <form action="http://pay.show.baofeng.com/order/alipay/pay" id="orderForm" method="post"><input type="hidden"
+                                                                                                        name="order_id"
+                                                                                                        ms-duplex="fromObj.order_id"><input
+                type="hidden" name="money" ms-duplex="fromObj.money"><input type="hidden" name="nick_name"
+                                                                            ms-duplex="fromObj.nick_name"><input
+                type="hidden" name="subject" ms-duplex="fromObj.subject"><input type="hidden" name="defaultbank"
+                                                                                ms-duplex="fromObj.defaultbank"></form>
+    </div>
+</div>
+<div class="payConfirmBG">
+    <div class="payConfirm">
+        <div class="payConfirmTxt"><p>您将向如下账户充值：</p>
+            <p ms-css-display="userName!=''?'block':'none'">账号：<span>{{userName}}</span></p>
+            <p ms-css-display="userName==''?'block':'none'">风秀ID：<span>{{uuid}}</span></p>
+            <p>昵称：<span>{{nick_name}}</span></p></div>
+        <div class="payConfirmBut"><a href="javascript:;" class="close">取消</a><a href="javascript:;" ms-click="submit()"
+                                                                                 target="_blank">确认支付</a></div>
+        <div><a href="javascript:;" class="icon-close close"></a></div>
+    </div>
+</div>
+<div class="zhezhao" ms-css-display="weixinView==2?'block':'none'">
+    <div class="tanchuang">
+        <div ms-css-display="zhifuchenggong==2?'block':'none'">
+            <div class="erweima"><span id="weixinUrl"></span></div>
+            <h5>微信扫描二维码完成支付</h5>
+            <div class="eweimawenzi"><a href="javascript:;" ms-click="escWeiXin()">取消支付</a> <a
+                    href="javascript:;">支付完成</a></div>
+        </div>
+        <div ms-css-display="zhifuchenggong==0?'block':'none'">
+            <div class="mainSuccess">
+                <div class="mainSuccessBg1"></div>
+                <h3>支付成功&nbsp;{{daojishi}}</h3></div>
+        </div>
+        <div ms-css-display="zhifuchenggong==1?'block':'none'">
+            <div class="mainSuccess"><h3>支付失败&nbsp;{{daojishi}}</h3></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="http://picture.show.baofeng.com/web_show_images/pay/js/base64.js"></script>
+<script type="text/javascript" src="http://picture.show.baofeng.com/web_show_images/js/avalon.min.js"></script>
+<script type="text/javascript" src="http://picture.show.baofeng.com/web_show_images/pay/js/commonUtil.js"></script>
+<script src="http://picture.show.baofeng.com/web_show_images/pay/lib/qrcode.min.js"></script>
+<script src="./js/pay.js"></script>
+<script src="http://s95.cnzz.com/z_stat.php?id=1257393663&web_id=1257393663" language="JavaScript"></script>
+<style>a[title="站长统计"] {
+    display: none
+}</style>
+</body>
+</html>

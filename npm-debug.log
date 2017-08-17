@@ -1,0 +1,135 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'mmRequest' ]
+2 info using npm@2.10.1
+3 info using node@v0.12.4
+4 verbose install initial load of J:\liveclient\package.json
+5 warn package.json weiclient@1.0.0 No description
+6 warn package.json weiclient@1.0.0 No repository field.
+7 warn package.json weiclient@1.0.0 No README data
+8 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\async\package.json
+9 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\body-parser\package.json
+10 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\compression\package.json
+11 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\connect-redis\package.json
+12 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\cookie-parser\package.json
+13 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\debug\package.json
+14 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\ejs\package.json
+15 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\eventproxy.js\package.json
+16 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\express\package.json
+17 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\express-session\package.json
+18 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\ffmpeg-node\package.json
+19 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\formidable\package.json
+20 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\gm\package.json
+21 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\later\package.json
+22 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\log4js\package.json
+23 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\mime\package.json
+24 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\morgan\package.json
+25 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\mysql\package.json
+26 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\needle\package.json
+27 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\nodemailer\package.json
+28 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\nodemailer-smtp-transport\package.json
+29 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\passport\package.json
+30 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\passport-local\package.json
+31 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\redis\package.json
+32 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\serve-favicon\package.json
+33 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\util\package.json
+34 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\wechat\package.json
+35 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\wechat-crypto\package.json
+36 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\xlsx\package.json
+37 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\xml2js\package.json
+38 verbose installManyTop reading scoped package data from J:\liveclient\node_modules\xmlreader\package.json
+39 info package.json async@0.9.0 No license field.
+40 info package.json connect-redis@2.1.0 No license field.
+41 info package.json cookie-parser@1.3.3 No license field.
+42 info package.json ejs@0.8.8 No license field.
+43 info package.json debug@2.0.0 No license field.
+44 info package.json ffmpeg-node@0.0.1 No license field.
+45 info package.json mime@1.2.11 No license field.
+46 info package.json redis@0.12.1 No license field.
+47 info package.json xmlreader@0.2.3 No license field.
+48 info package.json log4js@0.6.16 No license field.
+49 info package.json formidable@1.0.15 No license field.
+50 info package.json passport-local@1.0.0 No license field.
+51 info package.json needle@0.7.10 No license field.
+52 info package.json util@0.10.3 util is also the name of a node core module.
+53 info package.json xml2js@0.4.4 No license field.
+54 verbose readDependencies loading dependencies from J:\liveclient\package.json
+55 silly cache add args [ 'mmRequest', null ]
+56 verbose cache add spec mmRequest
+57 silly cache add parsed spec { raw: 'mmRequest',
+57 silly cache add   scope: null,
+57 silly cache add   name: 'mmRequest',
+57 silly cache add   rawSpec: '',
+57 silly cache add   spec: '*',
+57 silly cache add   type: 'range' }
+58 silly addNamed mmRequest@*
+59 verbose addNamed "*" is a valid semver range for mmRequest
+60 silly addNameRange { name: 'mmRequest', range: '*', hasData: false }
+61 silly mapToRegistry name mmRequest
+62 silly mapToRegistry using default registry
+63 silly mapToRegistry registry https://registry.npmjs.org/
+64 silly mapToRegistry uri https://registry.npmjs.org/mmRequest
+65 verbose addNameRange registry:https://registry.npmjs.org/mmRequest not in flight; fetching
+66 verbose request uri https://registry.npmjs.org/mmRequest
+67 verbose request no auth needed
+68 info attempt registry request try #1 at 14:35:56
+69 verbose request id 39815ef65ef5cad5
+70 http request GET https://registry.npmjs.org/mmRequest
+71 http 404 https://registry.npmjs.org/mmRequest
+72 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+72 verbose headers   'content-type': 'application/json',
+72 verbose headers   'cache-control': 'max-age=0',
+72 verbose headers   'content-length': '51',
+72 verbose headers   'accept-ranges': 'bytes',
+72 verbose headers   date: 'Wed, 17 Jun 2015 06:35:52 GMT',
+72 verbose headers   via: '1.1 varnish',
+72 verbose headers   age: '0',
+72 verbose headers   connection: 'keep-alive',
+72 verbose headers   'x-served-by': 'cache-sjc3132-SJC',
+72 verbose headers   'x-cache': 'MISS',
+72 verbose headers   'x-cache-hits': '0',
+72 verbose headers   'x-timer': 'S1434522952.203829,VS0,VE346' }
+73 silly get cb [ 404,
+73 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+73 silly get     'content-type': 'application/json',
+73 silly get     'cache-control': 'max-age=0',
+73 silly get     'content-length': '51',
+73 silly get     'accept-ranges': 'bytes',
+73 silly get     date: 'Wed, 17 Jun 2015 06:35:52 GMT',
+73 silly get     via: '1.1 varnish',
+73 silly get     age: '0',
+73 silly get     connection: 'keep-alive',
+73 silly get     'x-served-by': 'cache-sjc3132-SJC',
+73 silly get     'x-cache': 'MISS',
+73 silly get     'x-cache-hits': '0',
+73 silly get     'x-timer': 'S1434522952.203829,VS0,VE346' } ]
+74 verbose stack Error: 404 Not Found: mmRequest
+74 verbose stack     at CachingRegistryClient.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:245:14)
+74 verbose stack     at Request._callback (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:170:14)
+74 verbose stack     at Request.self.callback (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:368:22)
+74 verbose stack     at Request.emit (events.js:110:17)
+74 verbose stack     at Request.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:1219:14)
+74 verbose stack     at Request.emit (events.js:129:20)
+74 verbose stack     at IncomingMessage.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:1167:12)
+74 verbose stack     at IncomingMessage.emit (events.js:129:20)
+74 verbose stack     at _stream_readable.js:908:16
+74 verbose stack     at process._tickCallback (node.js:355:11)
+75 verbose statusCode 404
+76 verbose pkgid mmRequest
+77 verbose cwd J:\liveclient
+78 error Windows_NT 6.3.9600
+79 error argv "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "mmRequest"
+80 error node v0.12.4
+81 error npm  v2.10.1
+82 error code E404
+83 error 404 Not Found: mmRequest
+83 error 404
+83 error 404 'mmRequest' is not in the npm registry.
+83 error 404 You should bug the author to publish it (or use the name yourself!)
+83 error 404 It was specified as a dependency of 'weiclient'
+83 error 404
+83 error 404 Note that you can also install from a
+83 error 404 tarball, folder, http url, or git url.
+84 verbose exit [ 1, true ]

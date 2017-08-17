@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>个人账户中心</title>
+    <link rel="stylesheet" type="text/css" href="css/important.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="lib/jquery-1.11.2.js"></script>
+    <script src="lib/scrollbar.js"></script>
+    <style>
+        .ms-controller {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body class="ms-controller" ms-controller="register">
+<!--注册-->
+<div ms-css-display="loginState==0?'block':'none'" class="login">
+    <div class="loginBg"></div>
+    <div class="loginLogo"><img src="images/loginLogo.png"/></div>
+    <div class="loginLogo" style="color: white">用户注册</div>
+    <form method="post" id="myform" action="/api/reg/client" target="_blank">
+        <!--<form>-->
+        <div class="loginMain" ms-keydown="keyLogin()">
+            <ul>
+                <li>
+                    <input type="text" name="loginname" id="loginname"
+                           maxlength="100" tabindex="1" value=""
+                           class="loginUser-icon" ms-duplex="user.mobile">
+                    <i class="watermark-user"
+                       id="loginnameTip">输入手机号</i>
+                </li>
+                <li>
+                    <input type="password" name="password" id="password"
+                           maxlength="100" tabindex="2" class="loginPaw-icon" ms-duplex="user.password"
+                           value="">
+                    <i class="watermark-user" id="passwordTip">输入密码</i>
+                    <!--<i>{{prompt}}</i>-->
+                </li>
+                <li>
+
+                    <input type="text" class="sso-web-code" name="imgcode" id="imgcode" tabindex="3" value=""
+                           class="loginPaw-icon" ms-duplex="user.code"
+                           maxlength=6/>
+                    <i class="sso-web-in-a">
+                        <a id="mobileback" href="javascript:void(0)" class="sso-web-phone-code"
+                           ms-click="sendCode()">免费获取短信</a>
+                        <a id="mobilebackno" style="display:none" href="javascript:void(0)"
+                           class="sso-web-phone-code codeon">60秒后重新获得</a>
+                    </i>
+
+                    <div class="sso-web-errorcode" id="tips" style="padding-top:14px">{{msg}}</div>
+                </li>
+                <li class="web-agreed"><em><input type="checkbox" id="memberme" value="1" checked
+                                                  style="width: 20px;height: 20px"><a
+                        href="http://home.baofeng.com/user_protocol.html" target="_blank">我已阅读并同意《暴风影音注册协议》</a></em>
+                </li>
+                <li class="loginA"><a href="javascript:void(0)" class="sso-web-button" id="submit"
+                                      ms-click="login()">注 册</a>
+                </li>
+                <span><a href="javascript:;">已注册，我要登陆</a></span>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="js/base64.js"></script>
+<!--<script src="lib/main.js"></script>-->
+<script type="text/javascript" src="lib/avalon.min.js"></script>
+<script type="text/javascript" src="js/commonUtil.js"></script>
+<script type="text/javascript" src="js/register.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
+</body>
+</html>

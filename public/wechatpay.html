@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>我的账户</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <link rel="stylesheet" type="text/css" href="css/pay.css">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript"
+            src="http://picture.show.baofeng.com/web_show_images/pay/lib/jquery-1.11.2.js"></script>
+</head>
+
+<body>
+<div class="ge"></div>
+<header>
+    <div class="main">
+        <h2>输入手机号或风秀ID进行充值</h2>
+
+        <div class="payInput">
+            <ul>
+                <li><input type="text" placeholder="请输入手机号" id="mobile"/></li>
+                <li><input type="text" placeholder="请输入风秀ID" id="uuid"/></li>
+            </ul>
+            <span id="userName"></span>
+            <span id="msg"></span>
+        </div>
+    </div>
+</header>
+<div class="ge"></div>
+<div class="content">
+    <div class="main">
+        <h2>选择充值金额<span><i id="yuan">10.00</i>元等于<i id="dou">100</i>秀豆</span></h2>
+        <ul id="list">
+            <li class="active">10元</li>
+            <li>30元</li>
+            <li>50元</li>
+            <li>100元</li>
+            <li>200元</li>
+            <li>300元</li>
+        </ul>
+        <input type="text" placeholder="自定义金额"/>
+    </div>
+</div>
+<div class="ge"></div>
+<footer>
+    <div class="main">
+        <a href="javascript:;" class="submit" onclick="submitFun()">立即支付</a>
+
+        <p>秀豆即时到账，请登录后查看账户余额。若有任何充值问题，请联系客服。客服QQ：800111075</p>
+        <a href="javascript:;" class="finfo">*如何获取风秀ID</a>
+    </div>
+</footer>
+<script src="js/wechatPay.js"></script>
+</body>
+</html>

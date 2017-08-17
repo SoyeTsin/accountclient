@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="cone"></div>
+</body>
+<script>
+    //http://usercb.show.baofeng.com/wx/cb?code=031b9bd1343821db282db63b298b14ab&state=STATE
+    //http://usercb.show.baofeng.com/wx/wechatcb.html
+    var code = getParam('code');
+    var state = getParam('state');
+    function getParam(name) {
+        var search = document.location.search;
+        var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+        var matcher = pattern.exec(search);
+        var items = null;
+        if (null != matcher) {
+            try {
+                items = decodeURIComponent(decodeURIComponent(matcher[1]));
+            } catch (e) {
+                try {
+                    items = decodeURIComponent(matcher[1]);
+                } catch (e) {
+                    items = matcher[1];
+                }
+            }
+        }
+        return items;
+    }
+    UnityWebCore.webPageCallback('{ "Result": ' + jsonObj.Result + ', "Msg": ' + jsonObj.Msg + ', "Username":' + jsonObj.Username + ', "Password": ' + jsonObj.Password + ', "AccountType": ' + jsonObj.AccountType + ',"type":0}');
+    var oMyForm = new FormData();
+    var oReq = new XMLHttpRequest();
+    var url = 'http://www.baidu.com?code=' + code + '&state=' + state;
+    oReq.open("GET", url, true);
+    oReq.onload = function (oEvent) {
+        if (oReq.status == 200) {
+            var strList = oReq.responseText.split('\n ');
+            var str = strList.join('');
+            var jsonObj = eval('(' + str + ')');
+            if (jsonObj.Result == 0) {
+                window.location.href = "BaoFengShow://?data=" + ('{ "Result": ' + jsonObj.Result + ', "Msg": ' + jsonObj.Msg + ', "Username":' + jsonObj.Username + ', "Password": ' + jsonObj.Password + ', "AccountType": ' + jsonObj.AccountType + ',"Nickname":' + jsonObj.Nickname + ',"AccessToken":"' + jsonObj.AccessToken + ',"Nickname":' + jsonObj.Nickname + ',"OpenID":"' + jsonObj.OpenID + ',"Nickname":' + jsonObj.Nickname + ',"State":"' + jsonObj.State + '"}');
+                document.getElementById('cone').innerHTML = ('欢迎登陆风秀，已登录成功')
+                setTimeout(function () {
+                    window.opener = null;
+                    window.close();
+                }, 10000);
+            } else {
+                window.location.href = "BaoFengShow://?data=" + ('{ "Result": ' + jsonObj.Result + ', "Msg": ' + jsonObj.Msg + ', "Username":' + jsonObj.Username + ', "Password": ' + jsonObj.Password + ', "AccountType": ' + jsonObj.AccountType + ',"Nickname":' + jsonObj.Nickname + ',"AccessToken":"' + jsonObj.AccessToken + ',"Nickname":' + jsonObj.Nickname + ',"OpenID":"' + jsonObj.OpenID + ',"Nickname":' + jsonObj.Nickname + ',"State":"' + jsonObj.State + '"}');
+                setTimeout(function () {
+                    window.opener = null;
+                    window.close();
+                }, 10000);
+            }
+        } else {
+            alert('网络异常');
+            window.opener = null;
+            window.close();
+        }
+    };
+    oReq.send(oMyForm);
+</script>
+</html>

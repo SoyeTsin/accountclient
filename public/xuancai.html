@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>我要选菜</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <link rel="stylesheet" type="text/css" href="css/pay.css">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+
+<body>
+<div class="ge"></div>
+<header>
+    小海豚菜单
+</header>
+<div class="ge"></div>
+<div class="content">
+    <div class="main">
+        <h2>今天我要吃：<span><i id="yuan">14</i>元的&nbsp;&nbsp;<i id="dou"></i></span></h2>
+        <ul id="list">
+            <li class="active">14元</li>
+            <li>18元</li>
+        </ul>
+    </div>
+</div>
+<div class="ge"></div>
+<footer>
+    <div class="main">
+        <a href="javascript:;" class="submit" onclick="submitFun()">随机选菜</a>
+        <br>
+        <a href="javascript:;" class="submit" onclick="kancai()">看菜选菜</a>
+        <br>
+        <a href="javascript:;" class="submit" onclick="xuancai()">确认选菜</a>
+    </div>
+    <a href="javascript:;" onclick="delcaidan()" style="margin-right: 50px;margin-top: 25px;float: right">重选</a>
+</footer>
+<div id="caidan">
+
+</div>
+</body>
+<script>
+    var userInfo = {nickname: "123456"};
+    var caidan = [];
+    var caidan_a = ["支竹牛腩", "板栗烧鸡", "鼎香肥牛", "爆炒牛腩", "酸菜肥牛", "大酱猪手", "秘制带鱼", "酸豆角肉末", "酱爆鸭丝", "酱爆鸡丁", "可乐鸡翅", "招牌牛杂", "黑椒土豆肥牛", "泡椒牛腩", "鸡腿茄子双拼", "土豆排骨", "香菇焖鸡", "大酱鸭王", "蒸粉肉", "酸菜卤肉", "云耳蒸鸡", "台湾卤肉", "香汁排骨", "外婆菜肉末", "茄子肉末", "香辣萝卜牛腩", "咸菜猪肚", "啤酒鸭", "酱烧把子肉", "白切鸡", "鲜辣元耳鸡", "茄汁玉米鸡扒", "冬菇肉饼", "照烧汁鸡扒", "梅菜扣肉", "酸笋小笋肉末", "腩肉糙香干", "豆角茄子肉末", "酱香鸭腿", "油闷花椒鸭"];
+    var caidan_b = ["巴适虎皮扣肉", "百味黄焖鸡", "川香高汤煨肥牛", "鲜番茄或火炙牛排", "豆香红烧肉", "台湾卤肉饭拌酸菜", "双色椒炒牛仔骨", "现磨黑椒火炙鸡排", "普罗旺斯烤鸭胸", "泰式酸辣龙利鱼柳", "暖心鲜辣排骨", "啤酒烩鸭腿", "龙利鱼柳伴鲜番茄酱", "沁香原鸡伴姜蒜酱", "秘酱酥脆嫩鸭腿", "鲜番茄酱火炙鸡排", "现磨黑椒火炙牛排", "鲜菌烩虾球", "黄油鸡扒伴菌菇酱", "日式咖喱火炙鸡排", "辣味炖牛腩", "日式咖喱火炙牛排", "鲍汁绵绵鸭掌"];
+    caidan = caidan_a;
+    var state = 0;
+    function kancai() {
+        state = 1;
+        var list = document.getElementById("list");
+        list.innerHTML = "";
+        for (var i in caidan_a) {
+            var li = document.createElement("li");
+            li.innerHTML = caidan_a[i];
+            if (caidan_a[i].length > 5) {
+                li.style.fontSize = "12px";
+            }
+            if (caidan_a[i].length > 8) {
+                li.style.fontSize = "10px";
+            }
+            list.appendChild(li);
+        }
+        for (var i in caidan_b) {
+            var li = document.createElement("li");
+            li.innerHTML = caidan_b[i];
+            if (caidan_b[i].length > 5) {
+                li.style.fontSize = "12px";
+            }
+            if (caidan_b[i].length > 7) {
+                li.style.fontSize = "10px";
+            }
+            list.appendChild(li);
+        }
+        view();
+    }
+    var submitFun = function () {
+        if (state == 1) {
+            var list = document.getElementById("list");
+            list.innerHTML = "";
+            var li = document.createElement("li");
+            li.innerHTML = "14元";
+            li.className = "active";
+            list.appendChild(li);
+            var li = document.createElement("li");
+            li.innerHTML = "18元";
+            list.appendChild(li);
+            view();
+        }
+        var io = parseInt(Math.random() * caidan.length);
+        document.getElementById("dou").innerHTML = caidan[io];
+        state = 0;
+    }
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)return unescape(r[2]);
+        return null;
+    }
+    if (!GetQueryString("code")) {
+        window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd0abd7f5ba498cf6&redirect_uri=http://pay.show.baofeng.com/xuancai.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"
+    } else {
+        //获取票据
+        !function get_access_token() {
+            //  https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET
+            var oReq = new XMLHttpRequest();
+            var code = GetQueryString("code");
+            oReq.open("POST", "/mainService/get_openid?code=" + code, true);
+            oReq.onload = function (oEvent) {
+                console.log(JSON.stringify(oReq))
+                if (oReq.readyState == 4 && oReq.status == 200) {
+                    if (!oReq) {
+                        alert("网络连接失败", 1);
+                        return false
+                    }
+                    var strList = oReq.responseText.split('\n ');
+                    var str = strList.join('');
+                    var jsonObj = eval('(' + str + ')');
+                    if (jsonObj.code == 0) {
+                        userInfo = jsonObj.userinfo;
+                        wx.config({
+                            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                            appId: 'wxd0abd7f5ba498cf6', // 必填，公众号的唯一标识
+                            timestamp: jsonObj.timestamp, // 必填，生成签名的时间戳
+                            nonceStr: jsonObj.randomString, // 必填，生成签名的随机串
+                            signature: jsonObj.autograph,// 必填，签名，见附录1
+                            jsApiList: ['checkJsApi',
+                                'onMenuShareTimeline',
+                                'onMenuShareAppMessage',
+                                'onMenuShareQQ',
+                                'onMenuShareWeibo',
+                                'hideMenuItems',
+                                'showMenuItems',
+                                'hideAllNonBaseMenuItem',
+                                'showAllNonBaseMenuItem',
+                                'translateVoice',
+                                'startRecord',
+                                'stopRecord',
+                                'onRecordEnd',
+                                'playVoice',
+                                'pauseVoice',
+                                'stopVoice',
+                                'uploadVoice',
+                                'downloadVoice',
+                                'chooseImage',
+                                'previewImage',
+                                'uploadImage',
+                                'downloadImage',
+                                'getNetworkType',
+                                'openLocation',
+                                'getLocation',
+                                'hideOptionMenu',
+                                'showOptionMenu',
+                                'closeWindow',
+                                'scanQRCode',
+                                'chooseWXPay',
+                                'openProductSpecificView',
+                                'addCard',
+                                'chooseCard',
+                                'openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                        });
+                    } else {
+                        console.log("查询失败")
+                    }
+                } else {
+                    alert('网络异常')
+                }
+            };
+            oReq.send()
+        }();
+    }
+    function xuancai() {
+        var oReq = new XMLHttpRequest();
+        oReq.open("POST", "/mainService/xuancai?nick=" + userInfo.nickname + "&caidan=" + document.getElementById("dou").innerHTML, true);
+        oReq.onload = function (oEvent) {
+            if (oReq.readyState == 4 && oReq.status == 200) {
+                if (!oReq) {
+                    alert("网络连接失败", 1);
+                    return false
+                }
+                var strList = oReq.responseText.split('\n ');
+                var str = strList.join('');
+                var jsonObj = eval('(' + str + ')');
+                if (jsonObj.code == 0) {
+                    rencaidan();
+                }
+            } else {
+                alert('网络异常')
+            }
+        };
+        oReq.send()
+    }
+    function delcaidan() {
+        var oReq = new XMLHttpRequest();
+        oReq.open("POST", "/mainService/delcaidan?nick=" + userInfo.nickname, true);
+        oReq.onload = function (oEvent) {
+            if (oReq.readyState == 4 && oReq.status == 200) {
+                if (!oReq) {
+                    alert("网络连接失败", 1);
+                    return false
+                }
+                var strList = oReq.responseText.split('\n ');
+                var str = strList.join('');
+                var jsonObj = eval('(' + str + ')');
+                if (jsonObj.code == 0) {
+                    rencaidan();
+                }
+            } else {
+                alert('网络异常')
+            }
+        };
+        oReq.send()
+    }
+    setInterval(function () {
+        rencaidan();
+    }, 10000)
+    rencaidan();
+    function rencaidan() {
+        var oReq = new XMLHttpRequest();
+        oReq.open("POST", "/mainService/rencaidan", true);
+        oReq.onload = function (oEvent) {
+            if (oReq.readyState == 4 && oReq.status == 200) {
+                if (!oReq) {
+                    alert("网络连接失败");
+                    return false
+                }
+                var strList = oReq.responseText.split('\n ');
+                var str = strList.join('');
+                var jsonObj = eval('(' + str + ')');
+                var caidan = jsonObj.caidan;
+                var caidanHtml = document.getElementById("caidan")
+                caidanHtml.innerHTML = "";
+                for (var i in caidan) {
+                    if (caidan[i]) {
+                        var p = document.createElement("p");
+                        p.innerHTML = caidan[i].nick + "  " + caidan[i].caidan + "  x1";
+                        caidanHtml.appendChild(p);
+                    }
+                }
+            } else {
+                alert('网络异常')
+            }
+        };
+        oReq.send()
+    }
+    //选豆
+    var listLi = document.getElementById("list").getElementsByTagName("li");
+    view();
+    function view() {
+        for (var i = 0; i < listLi.length; i++) {
+            listLi[i].i = i;
+            listLi[i].onclick = function () {
+                for (i = 0; i < listLi.length; i++) {
+                    listLi[i].className = listLi[i].className.replace(/\s?active/, "");
+                }
+                this.className += "active";
+
+                if (state == 0) {
+                    switch (parseInt(this.i)) {
+                        case 0:
+                            yuan.innerHTML = 14;
+                            caidan = caidan_a;
+                            break;
+                        case 1:
+                            yuan.innerHTML = 18;
+                            caidan = caidan_b;
+                            break;
+                    }
+                } else {
+                    var k = parseInt(this.i);
+                    if (k < 40) {
+                        yuan.innerHTML = 14;
+                        document.getElementById("dou").innerHTML = caidan_a[k];
+                    } else {
+                        yuan.innerHTML = 18;
+                        document.getElementById("dou").innerHTML = caidan_b[(k - 40)];
+                    }
+                }
+            }
+        }
+    }
+
+    wx.ready(function () {
+
+        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+
+        wx.onMenuShareAppMessage({
+            title: '小海豚菜单', // 分享标题
+            desc: '小海豚菜单，点餐好帮手', // 分享描述
+            link: 'http://pay.show.baofeng.com/xuancai.html', // 分享链接
+            imgUrl: 'http://picture.show.baofeng.com/web/loginLogo.png', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        wx.onMenuShareTimeline({
+            title: '小海豚菜单', // 分享标题
+            link: 'http://pay.show.baofeng.com/xuancai.html', // 分享链接
+            imgUrl: 'http://picture.show.baofeng.com/web/loginLogo.png', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        wx.onMenuShareQQ({
+            title: '小海豚菜单', // 分享标题
+            desc: '小海豚菜单，点餐好帮手', // 分享描述
+            link: 'http://pay.show.baofeng.com/xuancai.html', // 分享链接
+            imgUrl: 'http://picture.show.baofeng.com/web/loginLogo.png', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        wx.onMenuShareQZone({
+            title: '小海豚菜单', // 分享标题
+            desc: '小海豚菜单，点餐好帮手', // 分享描述
+            link: 'http://pay.show.baofeng.com/xuancai.html', // 分享链接
+            imgUrl: 'http://picture.show.baofeng.com/web/loginLogo.png', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    });
+</script>
+</html>
